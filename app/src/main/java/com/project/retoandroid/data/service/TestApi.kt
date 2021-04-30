@@ -1,12 +1,13 @@
 package com.project.retoandroid.data.service
 
-import com.project.retoandroid.data.entity.User
+import com.project.retoandroid.data.entity.MovieResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.QueryMap
 
 interface TestApi {
 
-    @GET("users")
-    suspend fun getUsers(): Response<List<User>>
+    @GET("3/movie/upcoming")
+    suspend fun getMovies(@QueryMap(encoded = true) query: Map<String, String>): Response<MovieResponse>
 
 }

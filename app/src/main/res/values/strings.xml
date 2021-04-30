@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">retoAndroid</string>
+    <string name="api_key_movie">f46b58478f489737ad5a4651a4b25079</string>
+    <string name="action_settings">Settings</string>
 </resources>
