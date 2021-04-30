@@ -3,19 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="com.project.retoandroid.app.movie.MovieViewModel" />
+        <import type="com.project.retoandroid.data.entity.Movie" />
+        <variable
+            name="movie"
+            type="Movie" />
+        <variable
+            name="viewModel"
+            type="MovieViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_margin="4dp"
+        android:onClick="@{() -> viewModel.onMovie(movie)}"
         android:animateLayoutChanges="true">
 
         <TextView
-            android:id="@+id/textDetail"
+            android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:text="TextView"
+            android:layout_marginBottom="16dp"
+            android:text="@{movie.title}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

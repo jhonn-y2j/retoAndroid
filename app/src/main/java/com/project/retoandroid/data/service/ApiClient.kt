@@ -6,11 +6,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
-    const val url = "https://jsonplaceholder.typicode.com"
+    const val urlMovie = "https://api.themoviedb.org"
+    const val urlImage = "https://image.tmdb.org/t/p/w500/"
 
     @JvmStatic fun getTestApi() : TestApi =
         Retrofit.Builder()
-            .baseUrl(url)
+            .baseUrl(urlMovie)
             .client(RetrofitUtil.getBasicClientInterceptor())
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(TestApi::class.java)

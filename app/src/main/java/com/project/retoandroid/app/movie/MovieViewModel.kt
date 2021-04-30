@@ -1,37 +1,41 @@
-package com.project.retoandroid.app.user
+package com.project.retoandroid.app.movie
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.project.retoandroid.R
 import com.project.retoandroid.app.Injection
-import com.project.retoandroid.data.entity.User
+import com.project.retoandroid.data.entity.Movie
 import kotlinx.coroutines.launch
 
-class UserViewModel(
+class MovieViewModel(
     application: Application
 ): AndroidViewModel(application) {
 
-    private val userRepository = Injection.provideUserRepository()
+    private val movieRepository = Injection.provideMovieRepository()
 
-    private val _users = MutableLiveData<List<User>>()
-    val users: LiveData<List<User>>
-        get() = _users
+    private val _movies = MutableLiveData<List<Movie>>()
+    val movies: LiveData<List<Movie>>
+        get() = _movies
 
-    val userSelected = MutableLiveData<User>()
+    val movieSelected = MutableLiveData<Movie>()
+    val context = application.applicationContext?.let {
+        movieRepository.apiKey = it.getString(R.string.api_key_movie)
+    }
 
     init {
 
-        obtainUsers()
+        obtainMovies()
 
     }
 
-    private fun obtainUsers() {
+    private fun obtainMovies() {
 
         viewModelScope.launch {
 
             try {
 
-                val response = userRepository.getUsers()
-                _users.value = response
+                val response = movieRepository.obtainMovies()
+                _movies.value = response
 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -41,8 +45,8 @@ class UserViewModel(
 
     }
 
-    fun onUser(user: User) {
-        userSelected.value = user
+    fun onMovie(movie: Movie) {
+        movieSelected.value = movie
     }
 
     class Factory(
@@ -53,8 +57,8 @@ class UserViewModel(
         override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             with(modelClass) {
                 when {
-                    isAssignableFrom(UserViewModel::class.java) ->
-                        UserViewModel(
+                    isAssignableFrom(MovieViewModel::class.java) ->
+                        MovieViewModel(
                             application,
                         )
                     else -> throw IllegalArgumentException("Unknown ViewModel")
